@@ -66,8 +66,17 @@
   -fx-border-color: #9f9fa5;
   -fx-text-fill: black;
   -fx-alignment: CENTER_LEFT;
+    -fx-border-width: 0.0;
 
 }
+
+.table-view .empty-cell {
+    -fx-background-color: white; /* Light gray for empty cells */
+}
+.table-row-cell:filled .cell {
+    -fx-border-width: 0.3;
+}
+
 .table-row-cell:selected {
    -fx-background-color: whitesmoke;
    -fx-text-background-color:  #33FF55;

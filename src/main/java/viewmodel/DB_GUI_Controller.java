@@ -55,6 +55,7 @@ public class DB_GUI_Controller implements Initializable {
             tv_department.setCellValueFactory(new PropertyValueFactory<>("department"));
             tv_major.setCellValueFactory(new PropertyValueFactory<>("major"));
             tv_email.setCellValueFactory(new PropertyValueFactory<>("email"));
+
             tv.setItems(data);
 
             deleteBtn.setDisable(true);
