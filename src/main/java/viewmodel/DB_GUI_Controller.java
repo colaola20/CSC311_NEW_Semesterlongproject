@@ -211,6 +211,7 @@ public class DB_GUI_Controller implements Initializable {
 
     @FXML
     protected void editRecord() {
+
         if (first_name.getText() != null && last_name.getText() != null && department.getText() != null
                 && major.getText() != null && email.getText() != null) {
             editBtn.setDisable(false);
