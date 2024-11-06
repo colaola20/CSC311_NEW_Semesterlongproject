@@ -38,6 +38,8 @@ public class DB_GUI_Controller implements Initializable {
     @FXML
     private TableView<Person> tv;
     @FXML
+    private Button deleteBtn, editBtn, addBtn;
+    @FXML
     private TableColumn<Person, Integer> tv_id;
     @FXML
     private TableColumn<Person, String> tv_fn, tv_ln, tv_department, tv_major, tv_email;
@@ -54,9 +56,101 @@ public class DB_GUI_Controller implements Initializable {
             tv_major.setCellValueFactory(new PropertyValueFactory<>("major"));
             tv_email.setCellValueFactory(new PropertyValueFactory<>("email"));
             tv.setItems(data);
+
+            deleteBtn.setDisable(true);
+            editBtn.setDisable(true);
+            addBtn.setDisable(true);
+
+            first_name.textProperty().addListener((observable, oldValue, newValue) -> {
+                validationForAddBtn();
+                if (!first_name.getText().isEmpty() && !last_name.getText().isEmpty() && !email.getText().isEmpty() && !department.getText().isEmpty() && !major.getText().isEmpty()){
+                    deleteBtn.setDisable(false);
+                    editBtn.setDisable(false);
+                }
+                else {
+                    deleteBtn.setDisable(true);
+                    editBtn.setDisable(true);
+                }
+            });
+
+            last_name.textProperty().addListener((observable, oldValue, newValue) -> {
+                validationForAddBtn();
+                if (!first_name.getText().isEmpty() && !last_name.getText().isEmpty() && !email.getText().isEmpty() && !department.getText().isEmpty() && !major.getText().isEmpty()){
+                    deleteBtn.setDisable(false);
+                    editBtn.setDisable(false);
+                }
+                else {
+                    deleteBtn.setDisable(true);
+                    editBtn.setDisable(true);
+                }
+            });
+
+            department.textProperty().addListener((observable, oldValue, newValue) -> {
+                if (!first_name.getText().isEmpty() && !last_name.getText().isEmpty() && !email.getText().isEmpty() && !department.getText().isEmpty() && !major.getText().isEmpty()){
+                    deleteBtn.setDisable(false);
+                    editBtn.setDisable(false);
+                }
+                else {
+                    deleteBtn.setDisable(true);
+                    editBtn.setDisable(true);
+                }
+            });
+
+            major.textProperty().addListener((observable, oldValue, newValue) -> {
+                if (!first_name.getText().isEmpty() && !last_name.getText().isEmpty() && !email.getText().isEmpty() && !department.getText().isEmpty() && !major.getText().isEmpty()){
+                    deleteBtn.setDisable(false);
+                    editBtn.setDisable(false);
+                }
+                else {
+                    deleteBtn.setDisable(true);
+                    editBtn.setDisable(true);
+                }
+            });
+
+            email.textProperty().addListener((observable, oldValue, newValue) -> {
+                validationForAddBtn();
+                if (!first_name.getText().isEmpty() && !last_name.getText().isEmpty() && !email.getText().isEmpty() && !department.getText().isEmpty() && !major.getText().isEmpty()){
+                    deleteBtn.setDisable(false);
+                    editBtn.setDisable(false);
+                }
+                else {
+                    deleteBtn.setDisable(true);
+                    editBtn.setDisable(true);
+                }
+            });
+
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void validationForAddBtn(){
+        if (isNameValid(first_name.getText()) && isNameValid(last_name.getText()) && isEmailValid(email.getText())) {
+            addBtn.setDisable(false);
+        } else {
+            addBtn.setDisable(true);
+        }
+    }
+
+    /**
+     * Check if the email is valid (should be in the format <word>@farmingdale.edu)
+     * @param email
+     * @return
+     */
+    private boolean isEmailValid(String email) {
+        final String regex = "(\\w+)@([a-zA-Z]+).([a-zA-Z]{3})";
+        return email.matches(regex);
+    }
+
+    /**
+     * Check if the name is valid (should be between 2 and 25 characters long)
+     * @param name
+     * @return
+     */
+    private boolean isNameValid(String name) {
+        final String regex = "([a-zA-Z]{2,25})";
+        return name.matches(regex);
     }
 
     @FXML
@@ -116,6 +210,11 @@ public class DB_GUI_Controller implements Initializable {
 
     @FXML
     protected void editRecord() {
+        if (first_name.getText() != null && last_name.getText() != null && department.getText() != null
+                && major.getText() != null && email.getText() != null) {
+            editBtn.setDisable(false);
+        }
+
         Person p = tv.getSelectionModel().getSelectedItem();
         int index = data.indexOf(p);
         Person p2 = new Person(index + 1, first_name.getText(), last_name.getText(), department.getText(),
@@ -151,6 +250,8 @@ public class DB_GUI_Controller implements Initializable {
     @FXML
     protected void selectedItemTV(MouseEvent mouseEvent) {
         Person p = tv.getSelectionModel().getSelectedItem();
+        if (p==null) return;
+
         first_name.setText(p.getFirstName());
         last_name.setText(p.getLastName());
         department.setText(p.getDepartment());
