@@ -29,9 +29,12 @@ import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.nio.file.Files;
-import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import javafx.scene.control.ProgressBar;
 
 public class DB_GUI_Controller implements Initializable {
@@ -53,6 +56,13 @@ public class DB_GUI_Controller implements Initializable {
     private Button deleteBtn, editBtn, addBtn;
     @FXML
     private TableColumn<Person, Integer> tv_id;
+
+    @FXML
+    private ChoiceBox<String> choiceBox;
+
+    private checkBoxValues majorEnum;
+
+
     @FXML
     private TableColumn<Person, String> tv_fn, tv_ln, tv_department, tv_major, tv_email;
     private final DbConnectivityClass cnUtil = new DbConnectivityClass();
@@ -131,6 +141,17 @@ public class DB_GUI_Controller implements Initializable {
                     deleteBtn.setDisable(true);
                     editBtn.setDisable(true);
                 }
+            });
+
+
+            choiceBox.setItems(FXCollections.observableArrayList(
+                    Stream.of(majorEnum.values())
+                            .map(Enum::name)
+                            .collect(Collectors.toList())
+            ));
+
+            choiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                System.out.println("Selected value: " + newValue);
             });
 
 
