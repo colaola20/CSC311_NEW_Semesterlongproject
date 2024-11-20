@@ -49,10 +49,14 @@ public class DB_GUI_Controller implements Initializable {
 
     @FXML
     MenuBar menuBar;
+
+    @FXML
+    private MenuItem ChangePic, ClearItem, CopyItem, deleteItem, editItem, logOut, newItem;
+
     @FXML
     private TableView<Person> tv;
     @FXML
-    private Button deleteBtn, editBtn, addBtn;
+    private Button deleteBtn, editBtn, addBtn, clearBtn;
     @FXML
     private TableColumn<Person, Integer> tv_id;
 
@@ -85,8 +89,13 @@ public class DB_GUI_Controller implements Initializable {
             // Disable the delete and edit buttons until a record is selected
             deleteBtn.setDisable(true);
             editBtn.setDisable(true);
+            clearBtn.setDisable(true);
             // Disable the add button until all fields are filled with valid data
             addBtn.setDisable(true);
+
+            editItem.setDisable(true);
+            deleteItem.setDisable(true);
+            ClearItem.setDisable(true);
 
             // Disable the major field, so that the user can only select from the dropdown. After selecting a value from the dropdown, the major field will be automatically populated with the selected value.
             major.setDisable(true);
@@ -94,66 +103,63 @@ public class DB_GUI_Controller implements Initializable {
             // Add listeners to the first_name text field to enable the edit, delete, and add buttons when the field is filled with valid data
             first_name.textProperty().addListener((observable, oldValue, newValue) -> {
                 validationForAddBtn();
-                if (!first_name.getText().isEmpty() && !last_name.getText().isEmpty() && !email.getText().isEmpty() && !department.getText().isEmpty() && !major.getText().isEmpty()){
-                    deleteBtn.setDisable(false);
-                    editBtn.setDisable(false);
-                }
-                else {
-                    deleteBtn.setDisable(true);
-                    editBtn.setDisable(true);
-                }
+                boolean isInputValid = !first_name.getText().isEmpty() && !last_name.getText().isEmpty() && !email.getText().isEmpty() && !department.getText().isEmpty() && !major.getText().isEmpty();
+                deleteBtn.setDisable(!isInputValid);
+                editBtn.setDisable(!isInputValid);
+                clearBtn.setDisable(!isInputValid);
+                ClearItem.setDisable(!isInputValid);
+                editItem.setDisable(!isInputValid);
+                deleteItem.setDisable(!isInputValid);
             });
 
             // Add listeners to the last_name text field to enable the edit, delete, and add buttons when the field is filled with valid data
             last_name.textProperty().addListener((observable, oldValue, newValue) -> {
                 validationForAddBtn();
-                if (!first_name.getText().isEmpty() && !last_name.getText().isEmpty() && !email.getText().isEmpty() && !department.getText().isEmpty() && !major.getText().isEmpty()){
-                    deleteBtn.setDisable(false);
-                    editBtn.setDisable(false);
-                }
-                else {
-                    deleteBtn.setDisable(true);
-                    editBtn.setDisable(true);
-                }
+                boolean isInputValid = !first_name.getText().isEmpty() && !last_name.getText().isEmpty() && !email.getText().isEmpty() && !department.getText().isEmpty() && !major.getText().isEmpty();
+                deleteBtn.setDisable(!isInputValid);
+                editBtn.setDisable(!isInputValid);
+                clearBtn.setDisable(!isInputValid);
+                ClearItem.setDisable(!isInputValid);
+                editItem.setDisable(!isInputValid);
+                deleteItem.setDisable(!isInputValid);
             });
 
             // Add listeners to the department text field to enable the dit, delete, and add buttons when the field is filled with valid data
             department.textProperty().addListener((observable, oldValue, newValue) -> {
                 validationForAddBtn();
-                if (!first_name.getText().isEmpty() && !last_name.getText().isEmpty() && !email.getText().isEmpty() && !department.getText().isEmpty() && !major.getText().isEmpty()){
-                    deleteBtn.setDisable(false);
-                    editBtn.setDisable(false);
-                }
-                else {
-                    deleteBtn.setDisable(true);
-                    editBtn.setDisable(true);
-                }
+                boolean isInputValid = !first_name.getText().isEmpty() && !last_name.getText().isEmpty() && !email.getText().isEmpty() && !department.getText().isEmpty() && !major.getText().isEmpty();
+                deleteBtn.setDisable(!isInputValid);
+                editBtn.setDisable(!isInputValid);
+                clearBtn.setDisable(!isInputValid);
+                ClearItem.setDisable(!isInputValid);
+                editItem.setDisable(!isInputValid);
+                deleteItem.setDisable(!isInputValid);
             });
 
             // Add listeners to the email text field to enable the edit, delete, and add buttons when the field is filled with valid data
             email.textProperty().addListener((observable, oldValue, newValue) -> {
                 validationForAddBtn();
-                if (!first_name.getText().isEmpty() && !last_name.getText().isEmpty() && !email.getText().isEmpty() && !department.getText().isEmpty() && !major.getText().isEmpty()){
-                    deleteBtn.setDisable(false);
-                    editBtn.setDisable(false);
-                }
-                else {
-                    deleteBtn.setDisable(true);
-                    editBtn.setDisable(true);
-                }
+                boolean isInputValid = !first_name.getText().isEmpty() && !last_name.getText().isEmpty() && !email.getText().isEmpty() && !department.getText().isEmpty() && !major.getText().isEmpty();
+                deleteBtn.setDisable(!isInputValid);
+                editBtn.setDisable(!isInputValid);
+                clearBtn.setDisable(!isInputValid);
+                ClearItem.setDisable(!isInputValid);
+                editItem.setDisable(!isInputValid);
+                deleteItem.setDisable(!isInputValid);
             });
 
             major.textProperty().addListener((observable, oldValue, newValue) -> {
                 validationForAddBtn();
-                if (!first_name.getText().isEmpty() && !last_name.getText().isEmpty() && !email.getText().isEmpty() && !department.getText().isEmpty() && !major.getText().isEmpty()){
-                    deleteBtn.setDisable(false);
-                    editBtn.setDisable(false);
-                }
-                else {
-                    deleteBtn.setDisable(true);
-                    editBtn.setDisable(true);
-                }
+                boolean isInputValid = !first_name.getText().isEmpty() && !last_name.getText().isEmpty() && !email.getText().isEmpty() && !department.getText().isEmpty() && !major.getText().isEmpty();
+                deleteBtn.setDisable(!isInputValid);
+                editBtn.setDisable(!isInputValid);
+                clearBtn.setDisable(!isInputValid);
+                ClearItem.setDisable(!isInputValid);
+                editItem.setDisable(!isInputValid);
+                deleteItem.setDisable(!isInputValid);
             });
+
+
 
             // Add listeners to the choice box to enable getting the selected value and populating the major field with the selected value
             choiceBox.setItems(FXCollections.observableArrayList(
@@ -219,6 +225,39 @@ public class DB_GUI_Controller implements Initializable {
         System.out.println(!major.getText().isEmpty());
         return !major.getText().isEmpty();
     }
+
+    /**
+     * Handle the clear menu item pressed event
+     * @param event
+     */
+    @FXML
+    void clearItemPressed(ActionEvent event) {
+        clearForm();
+    }
+
+    @FXML
+    void copyItemPressed(ActionEvent event) {
+
+    }
+
+    /**
+     * Handle the delete menu item pressed event
+     * @param event
+     */
+    @FXML
+    void deleteItemPressed(ActionEvent event) {
+        deleteRecord();
+    }
+
+    /**
+     * Handle the edit menu item pressed event
+     * @param event
+     */
+    @FXML
+    void editItemPressed(ActionEvent event) {
+        editRecord();
+    }
+
 
     @FXML
     protected void addNewRecord() {
