@@ -80,9 +80,12 @@
 .table-row-cell:selected {
    -fx-background-color: whitesmoke;
    -fx-text-background-color:  #33FF55;
-
-
 }
+
+.table-cell {
+    -fx-background-color: red;
+}
+
 .table-view:focused .table-row-cell:selected .table-cell {
     -fx-background-color: lightBlue;
     -fx-text-fill: grey;

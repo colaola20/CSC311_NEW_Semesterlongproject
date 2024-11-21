@@ -98,7 +98,7 @@ public class LoginController {
             e.printStackTrace();
         }
 
-        if ((username.equals("admin") && password.equals("admin"))||(usernameMatch.equals(username) && passwordMatch.equals(password))) {
+        if ((username.equals("admin") && password.equals("admin"))||(usernameMatch != null && passwordMatch != null && usernameMatch.equals(username) && passwordMatch.equals(password))) {
             System.out.println("Login successful");
             incorrectPassword.setText("");
             try {
@@ -121,7 +121,7 @@ public class LoginController {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/view/signUp.fxml"));
             Scene scene = new Scene(root, 900, 600);
-            scene.getStylesheets().add(getClass().getResource("/css/lightTheme.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getResource("/css/loginWindow.css").toExternalForm());
             Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             window.setScene(scene);
             window.show();

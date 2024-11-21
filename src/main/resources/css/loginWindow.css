@@ -10,14 +10,14 @@
 }
 
 /* Username and password labels */
-#usernameLabel, #passwordLabel {
+#usernameLabel, #passwordLabel, .label {
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-text-fill: #2e7d32; /* dark green for key labels */
 }
 
 /* Text fields for username and password */
-#usernameTextField, #passwordField {
+#usernameTextField, #passwordField, .text-field {
     -fx-prompt-text-fill: #9e9e9e; /* neutral gray for placeholder text */
     -fx-border-color: #cfd8dc; /* light gray border */
     -fx-border-radius: 5;
