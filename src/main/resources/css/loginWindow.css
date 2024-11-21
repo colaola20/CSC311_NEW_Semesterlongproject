@@ -1,0 +1,93 @@
+/* Root pane styling */
+#rootpane {
+    -fx-background-color: #f9f9f9; /* neutral light gray background */
+    -fx-padding: 20;
+    -fx-hgap: 10;
+    -fx-vgap: 10;
+    -fx-border-color: #d1d9d9; /* soft gray border */
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+}
+
+/* Username and password labels */
+#usernameLabel, #passwordLabel {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2e7d32; /* dark green for key labels */
+}
+
+/* Text fields for username and password */
+#usernameTextField, #passwordField {
+    -fx-prompt-text-fill: #9e9e9e; /* neutral gray for placeholder text */
+    -fx-border-color: #cfd8dc; /* light gray border */
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 5;
+    -fx-background-color: white;
+}
+
+/* Login and Sign-up buttons */
+#loginBtn {
+    -fx-background-color: #4caf50; /* medium green for primary action */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 15;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+#loginBtn:hover {
+    -fx-background-color: #388e3c; /* slightly darker green on hover */
+}
+
+#loginBtn:pressed {
+    -fx-background-color: #2e7d32; /* dark green on press */
+}
+
+/* Sign-up button with contrasting neutral tones */
+#signUpButton {
+    -fx-background-color: #e0e0e0; /* neutral gray */
+    -fx-text-fill: #424242; /* darker text for visibility */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 15;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+#signUpButton:hover {
+    -fx-background-color: #bdbdbd; /* darker gray on hover */
+}
+
+#signUpButton:pressed {
+    -fx-background-color: #9e9e9e; /* even darker gray on press */
+}
+
+/* Label for incorrect password messages */
+#incorrectPassword {
+    -fx-text-fill: #d32f2f; /* red for error messages */
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+}
+
+/* General GridPane alignment adjustments */
+#rootpane > .label,
+#rootpane > .text-field,
+#rootpane > .button,
+#rootpane > .password-field {
+    -fx-margin: 5; /* consistent spacing */
+}
+
+/* Title Text Styling */
+#login_title {
+    -fx-font-size: 54px; /* Larger font size for prominence */
+    -fx-font-weight: bold; /* Bold text for emphasis */
+    -fx-text-fill: #424242; /* Dark green accent color */
+    -fx-alignment: center; /* Center alignment */
+    -fx-padding: 10 0 20 0; /* Spacing around the title */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0.5, 0, 2); /* Subtle shadow for depth */
+}
+

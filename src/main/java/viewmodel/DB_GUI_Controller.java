@@ -454,7 +454,7 @@ public class DB_GUI_Controller implements Initializable {
         });
     }
 
-    private static enum Major {Business, CSC, CPIS, English, Mathematics, Nursing, SecuritySystems, SportManagement}
+    public static enum Major {Business, CSC, CPIS, English, Mathematics, Nursing, SecuritySystems, SportManagement}
 
     private static class Results {
 
