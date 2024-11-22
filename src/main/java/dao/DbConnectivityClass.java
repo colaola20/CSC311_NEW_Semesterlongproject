@@ -231,4 +231,6 @@ public class DbConnectivityClass {
             lg.makeLog(String.valueOf(id));
             return id;
         }
+
+
     }

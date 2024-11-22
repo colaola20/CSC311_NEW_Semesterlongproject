@@ -34,7 +34,7 @@ public class MainApplication extends Application {
     private void showScene1() {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/view/splashscreen.fxml"));
-            Scene scene = new Scene(root, 900, 600);
+            Scene scene = new Scene(root, 1000, 650);
             scene.getStylesheets().add(getClass().getResource("/css/loginWindow.css").toExternalForm());
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -54,7 +54,7 @@ public class MainApplication extends Application {
             fadeOut.setFromValue(1);
             fadeOut.setToValue(0);
             fadeOut.setOnFinished(e -> {
-                Scene newScene = new Scene(newRoot, 900, 600);
+                Scene newScene = new Scene(newRoot, 1000, 650);
                 primaryStage.setScene(newScene);
                 primaryStage.show();
             });

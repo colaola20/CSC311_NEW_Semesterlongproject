@@ -1,119 +1,251 @@
-.db_btn {
-    -fx-background-color: #a73;
-    -fx-cursor: hand;
-    -fx-font-family: "Arial";
-    -fx-font-size: 15px;
-    -fx-text-alignment: center;
-    -fx-text-fill: #000000;
-    -fx-alignment: CENTER;
-    -fx-background-radius: 10;
-    -fx-pref-width:200px;
-    -fx-pref-height: 50px;
-}
-
-.left_pane {
-    -fx-background-color: #a73;
-    -fx-pref-width: 130px;
-    -fx-pref-height: 600px;
-}
-
-.admin_section {
-    -fx-background-color: #999;
-}
-
-.table_columns {
-    -fx-background-color: white;
-    -fx-text-fill: black;
+/* Root container styling */
+.borderPane {
+    -fx-background-color: #f5f5f5; /* Light neutral background */
 }
 
 
+/* MenuBar container styling ----------------------------------------*/
 .menu_bar {
-    -fx-background-color: #841;
+    -fx-background-color: #4CAF50; /* Main green background */
+    -fx-padding: 5px; /* Add some padding for a cleaner look */
+    -fx-font-family: "Arial", sans-serif;
+    -fx-font-size: 14px;
 }
 
-.anchor_pane {
-    -fx-background-color: #a73;
+/* Menu text styling */
+.menu_bar .label {
+    -fx-text-fill: white; /* White text for contrast */
+    -fx-font-weight: bold; /* Make menu titles bold */
 }
 
-.text_field_pane {
-    -fx-background-color: #79dc05;
-
+/* Menu hover effect */
+.menu:hover {
+    -fx-background-color: #2a4c1e; /* Lighter green when hovering over menu items */
 }
 
-.image_view{
-    -fx-background-color: yellow;
-    -fx-border-color: black;
-    -fx-border-width: 2;
+.menu_item .label {
+    -fx-text-fill: black; /* White text for contrast */
+}
+
+/* Menu item styling */
+.menu_bar .menu_item .menu {
+    -fx-background-color: #ffffff; /* White background for dropdown items */
+    -fx-text-fill: #333333; /* Dark text for dropdown items */
+    -fx-font-size: 13px;
+    -fx-padding: 5px 10px; /* Add padding for menu items */
+    -fx-background-radius: 5; /* Slightly rounded corners */
+}
+
+/* Menu item hover effect */
+.menu .menu_item:hover {
+    -fx-background-color: #E8F5E9; /* Light green background when hovering */
+    -fx-text-fill: #4CAF50; /* Green text to match the theme */
+}
+
+/* Menu item separator styling */
+.menu_bar .context-menu .separator {
+    -fx-border-color: #ddd; /* Light gray for separator lines */
+    -fx-border-width: 0 0 1px 0; /* Bottom border only */
 }
 
 
 
 
-.table-view .column-header,
-.table-view .column-header-background .filler {
-    -fx-background-color:  #999999;
-     -fx-text-fill: black;
-}
-.table-view .column-header .label{
-   -fx-text-fill: white;
-   -fx-font-weight: bold;
-   -fx-alignment: CENTER_LEFT;
-}
-.table-view .cell{
-   -fx-cell-size: 35;
-  -fx-alignment: center-left;
-  -fx-background-color: #FFFFFF;
-  -fx-border-color: #9f9fa5;
-  -fx-text-fill: black;
-  -fx-alignment: CENTER_LEFT;
-    -fx-border-width: 0.0;
-
+/* General button styling --------------- BUTTON----------------------*/
+.button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-cursor: hand;
+    -fx-pref-width: 180px;
+    -fx-pref-height: 40px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.15), 4, 0, 0, 2);
 }
 
-.table-view .empty-cell {
-    -fx-background-color: white; /* Light gray for empty cells */
-}
-.table-row-cell:filled .cell {
-    -fx-border-width: 0.3;
+.button:hover {
+    -fx-background-color: #45A049;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 6, 0, 0, 2);
 }
 
-.table-row-cell:selected {
-   -fx-background-color: whitesmoke;
-   -fx-text-background-color:  #33FF55;
+.button:pressed {
+    -fx-background-color: #388E3C;
+    -fx-effect: none;
 }
 
-.table-cell {
-    -fx-background-color: red;
+.button:disabled {
+    -fx-background-color: #cccccc;
+    -fx-text-fill: #666;
+    -fx-cursor: default;
 }
 
-.table-view:focused .table-row-cell:selected .table-cell {
-    -fx-background-color: lightBlue;
-    -fx-text-fill: grey;
-}
-/* scroll bar starts here */
 
-/* The increment and decrement button CSS class of scrollbar */
-.table-view .increment-button ,.table-view .decrement-button {
-    -fx-background-color:transparent;
-	-fx-background-radius: 2em;
-
+/* Image View styling --------------------------------------------------*/
+.image-view {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 10, 0, 0, 2);
+    -fx-background-radius: 10;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 10;
+    -fx-padding: 5px;
 }
 
-/* The main scrollbar **track** CSS class  */
-.table-view .scroll-bar:horizontal .track,
-.table-view .scroll-bar:vertical .track{
-	-fx-background-color: transparent;
-	-fx-border-color:derive( #FFFFFF,80%);
-
-	-fx-background-radius: 2em;
-	-fx-border-radius:2em;
+/* Table View styling --------------------------------------------------*/
+.table-view {
+    -fx-background-color: white;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 8;
+    -fx-padding: 10px;
 }
 
-/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
+.table-view .column-header {
+    -fx-background-color: #4CAF50; /* Darker green for headers */
+    -fx-alignment: CENTER_LEFT;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+.table-view .cell:filled {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: black;
+    -fx-padding: 8px;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 0.5px;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.table-view .cell:empty {
+    -fx-background-color: transparent; /* Make background invisible */
+    -fx-border-color: transparent; /* Hide borders */
+    -fx-padding: 0; /* Remove extra spacing */
+    -fx-border-width: 0px;
+}
+
+.table-view .cell:selected {
+    -fx-background-color: #ffff66; /* Soft green for selected rows */
+}
+
+
+/* Scrollbar styling */
 .table-view .scroll-bar:horizontal .thumb,
 .table-view .scroll-bar:vertical .thumb {
-    -fx-background-color:derive( #FFFFFF,90%);
-	-fx-background-insets: 1, 0, 0;
-	-fx-background-radius: 2em;
-
+    -fx-background-color: #d6d6d6;
+    -fx-background-radius: 2em;
 }
+
+.table-view .scroll-bar:horizontal .track,
+.table-view .scroll-bar:vertical .track {
+    -fx-background-color: #f0f0f0;
+    -fx-background-radius: 2em;
+}
+
+/* Text field styling */
+.text-field {
+    -fx-prompt-text-fill: #9e9e9e;
+    -fx-border-color: #cfd8dc;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 5px;
+    -fx-background-color: white;
+    -fx-pref-height: 30px;
+}
+
+.text-field:focused {
+    -fx-border-color: #4CAF50; /* Highlight green border on focus */
+    -fx-effect: dropshadow(one-pass-box, rgba(0, 150, 0, 0.2), 5, 0, 0, 2);
+}
+
+.choice-box {
+    -fx-background-color: #ffffff; /* White background */
+    -fx-border-color: #cfd8dc; /* Light gray border */
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 5;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333; /* Dark gray text */
+    -fx-height: 30px;
+}
+
+.choice-box:hover {
+    -fx-border-color: #4CAF50; /* Green border on hover */
+}
+
+.choice-box:focused {
+    -fx-border-color: #4CAF50; /* Highlight border on focus */
+    -fx-effect: dropshadow(one-pass-box, rgba(0, 150, 0, 0.2), 5, 0, 0, 2);
+}
+
+.choice-box .arrow {
+    -fx-background-color: #4CAF50; /* Green arrow background */
+    -fx-padding: 5;
+    -fx-shape: "M 0 0 L 4 0 L 2 2 Z"; /* Triangle shape for arrow */
+}
+
+.choice-box .arrow:hover {
+    -fx-background-color: #45A049; /* Slightly darker green on hover */
+}
+
+.choice-box-popup {
+    -fx-background-color: #ffffff; /* White dropdown background */
+    -fx-border-color: #cfd8dc; /* Light gray border */
+    -fx-border-radius: 5;
+    -fx-padding: 5;
+}
+
+.choice-box .list-cell {
+    -fx-background-color: white; /* White for dropdown items */
+    -fx-text-fill: #333333;
+    -fx-font-size: 14px;
+    -fx-padding: 8px;
+}
+
+.choice-box .list-cell:hover {
+    -fx-background-color: #f0f0f0; /* Light gray on hover */
+}
+
+.choice-box .list-cell:focused {
+    -fx-background-color: #c7e1b1; /* Soft green for focus */
+}
+
+
+/* Default ProgressBar styling */
+.progress-bar {
+    -fx-pref-height: 20px; /* Adjust height */
+    -fx-background-color: #e0e0e0; /* Background color for unfilled bar */
+    -fx-background-radius: 10; /* Rounded corners for the background */
+    -fx-border-color: #b0b0b0; /* Optional border */
+    -fx-border-radius: 10; /* Match the corner rounding */
+    -fx-border-width: 1; /* Border thickness */
+}
+
+/* Style for the filled portion of the ProgressBar */
+.progress-bar .track {
+    -fx-background-color: #94DEA5; /* Light green for progress */
+    -fx-background-radius: 10; /* Match background rounding */
+}
+
+/* ProgressBar on hover */
+.progress-bar:hover .track {
+    -fx-background-color: #ffff66; /* Slightly darker green when hovered */
+}
+
+/* ProgressBar with indeterminate state */
+.progress-bar:indeterminate .track {
+    -fx-background-color: linear-gradient(to right, #66bb6a 0%, #81c784 50%, #4caf50 100%);
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.25), 2, 0.0, 0.0, 0.0);
+}
+
+.label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2e7d32; /* dark green for key labels */
+    -fx-pref-height: 30;
+}
+
+

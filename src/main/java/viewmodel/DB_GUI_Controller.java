@@ -24,19 +24,26 @@ import javafx.stage.Stage;
 import model.Person;
 import service.MyLogger;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
+import java.sql.*;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.sql.ResultSet;
+import java.io.BufferedReader;
 
 import javafx.scene.control.ProgressBar;
 
 public class DB_GUI_Controller implements Initializable {
+    final static String DB_NAME="CSC311_Week10_HW";
+    final static String SQL_SERVER_URL = "jdbc:mysql://csc311sorychserver.mysql.database.azure.com";//update this server name
+    final static String DB_URL = "jdbc:mysql://csc311sorychserver.mysql.database.azure.com/"+DB_NAME;//update this database name
+    final static String USERNAME = "csc311admin";// update this username
+    final static String PASSWORD = "MvT$!qp9c26ZY!V";// update this password
+
     StorageUploader store = new StorageUploader();
 
     @FXML
@@ -62,6 +69,9 @@ public class DB_GUI_Controller implements Initializable {
 
     @FXML
     private ChoiceBox<String> choiceBox;
+
+    @FXML
+    private Label statusMsg;
 
 
     @FXML
@@ -170,8 +180,9 @@ public class DB_GUI_Controller implements Initializable {
 
             choiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
                 major.setText(newValue);
-                System.out.println("Selected value: " + newValue); // Debugging
             });
+
+            Platform.runLater(() -> statusMsg.setText("Welcome!"));
 
 
         } catch (Exception e) {
@@ -221,8 +232,6 @@ public class DB_GUI_Controller implements Initializable {
     }
 
     private boolean isMajorValid(TextField major) {
-        System.out.println("Major: " + major.getText());
-        System.out.println(!major.getText().isEmpty());
         return !major.getText().isEmpty();
     }
 
@@ -262,13 +271,14 @@ public class DB_GUI_Controller implements Initializable {
     @FXML
     protected void addNewRecord() {
 
-            Person p = new Person(first_name.getText(), last_name.getText(), department.getText(),
-                    major.getText(), email.getText(), imageURL.getText());
+            Person p = new Person(first_name.getText(), last_name.getText(), department.getText(), major.getText(), email.getText(), imageURL.getText());
             cnUtil.insertUser(p);
             cnUtil.retrieveId(p);
             p.setId(cnUtil.retrieveId(p));
             data.add(p);
             clearForm();
+
+        Platform.runLater(() -> statusMsg.setText("New record was added to the table!"));
 
     }
 
@@ -287,7 +297,7 @@ public class DB_GUI_Controller implements Initializable {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/view/login.fxml"));
             Scene scene = new Scene(root, 900, 600);
-            scene.getStylesheets().add(getClass().getResource("/css/lightTheme.css").getFile());
+            scene.getStylesheets().add(getClass().getResource("/css/loginWindow.css").getFile());
             Stage window = (Stage) menuBar.getScene().getWindow();
             window.setScene(scene);
             window.show();
@@ -330,6 +340,8 @@ public class DB_GUI_Controller implements Initializable {
         data.remove(p);
         data.add(index, p2);
         tv.getSelectionModel().select(index);
+
+        Platform.runLater(() -> statusMsg.setText("The record was successfully edited!"));
     }
 
     @FXML
@@ -339,6 +351,8 @@ public class DB_GUI_Controller implements Initializable {
         cnUtil.deleteRecord(p);
         data.remove(index);
         tv.getSelectionModel().select(index);
+
+        Platform.runLater(() -> statusMsg.setText("The record was successfully deleted!"));
     }
 
     @FXML
@@ -400,26 +414,24 @@ public class DB_GUI_Controller implements Initializable {
     }
 
     public void lightTheme(ActionEvent actionEvent) {
+        Platform.runLater(() -> statusMsg.setText("The light theme was selected!"));
         try {
             Scene scene = menuBar.getScene();
-            Stage stage = (Stage) scene.getWindow();
-            stage.getScene().getStylesheets().clear();
+            scene.getStylesheets().clear();
             scene.getStylesheets().add(getClass().getResource("/css/lightTheme.css").toExternalForm());
-            stage.setScene(scene);
-            stage.show();
             System.out.println("light " + scene.getStylesheets());
-
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void darkTheme(ActionEvent actionEvent) {
+        Platform.runLater(() -> statusMsg.setText("The dark theme was selected!"));
         try {
-            Stage stage = (Stage) menuBar.getScene().getWindow();
-            Scene scene = stage.getScene();
+            Scene scene = menuBar.getScene();
             scene.getStylesheets().clear();
             scene.getStylesheets().add(getClass().getResource("/css/darkTheme.css").toExternalForm());
+            System.out.println("dark " + scene.getStylesheets());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -469,4 +481,73 @@ public class DB_GUI_Controller implements Initializable {
         }
     }
 
+    /**
+     * Export the data from table view to a CSV file
+     * @param event
+     */
+    @FXML
+    void exportCSV(ActionEvent event) {
+        statusMsg.setText("");
+        cnUtil.connectToDatabase();
+        String sql = "SELECT * FROM users ";
+        try (
+             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+             PreparedStatement preparedStatement = conn.prepareStatement(sql);
+             ResultSet resultSet = preparedStatement.executeQuery();
+             BufferedWriter fileWriter = new BufferedWriter(new FileWriter("src/main/resources/exportData.csv"))
+        ){
+
+            // Write CSV header
+            fileWriter.write("ID,First Name,Last Name,Department,Major,Email\n");
+
+            // Write data rows
+            while (resultSet.next()) {
+                fileWriter.write(resultSet.getInt("id") + "," +
+                        resultSet.getString("first_name") + "," +
+                        resultSet.getString("last_name") + "," +
+                        resultSet.getString("department") + "," +
+                        resultSet.getString("major") + "," +
+                        resultSet.getString("email") + "\n");
+            }
+
+            Platform.runLater(() -> statusMsg.setText("Data was exported to CSV file! The file's path is src/main/resources/exportData.csv"));
+
+            // Ensure the data is written to the file
+            fileWriter.flush();
+
+         } catch (SQLException | IOException e) {
+             e.printStackTrace();
+         }
+
+    }
+
+    /**
+     * Import the data from a CSV file to the table view
+     * @param event
+     */
+    @FXML
+    void importCSV(ActionEvent event) {
+        data.clear();
+        String line = "";
+        try (BufferedReader fileReader = new BufferedReader(new FileReader("src/main/resources/exportData.csv"))) {
+            // Read the header line
+            String headerLine = fileReader.readLine();
+            System.out.println("Header: " + headerLine);
+
+            //Read data lines
+            while ((line = fileReader.readLine()) != null) {
+                String[] fileData = line.split(",");
+                data.add(new Person(Integer.parseInt(fileData[0]), fileData[1], fileData[2], fileData[3], fileData[4], fileData[5], ""));
+            }
+
+            Platform.runLater(() -> statusMsg.setText("Data was imported from CSV file! The file's path is src/main/resources/exportData.csv"));
+
+            fileReader.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
+
+
