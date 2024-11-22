@@ -1,7 +1,6 @@
 package viewmodel;
 
 import dao.DbConnectivityClass;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -9,13 +8,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import model.Person;
 
 import java.sql.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class SignUpController {
 
@@ -174,7 +170,7 @@ public class SignUpController {
             conn.close();
 
             Parent root = FXMLLoader.load(getClass().getResource("/view/db_interface_gui.fxml"));
-            Scene scene = new Scene(root, 900, 600);
+            Scene scene = new Scene(root, 1000, 650);
             scene.getStylesheets().add(getClass().getResource("/css/lightTheme.css").toExternalForm());
             Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             window.setScene(scene);
@@ -195,7 +191,7 @@ public class SignUpController {
     public void goBack(ActionEvent actionEvent) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/view/login.fxml"));
-            Scene scene = new Scene(root, 900, 600);
+            Scene scene = new Scene(root, 1000, 650);
             scene.getStylesheets().add(getClass().getResource("/css/lightTheme.css").toExternalForm());
             Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             window.setScene(scene);

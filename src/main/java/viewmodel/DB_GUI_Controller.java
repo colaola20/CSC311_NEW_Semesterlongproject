@@ -17,7 +17,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -182,11 +182,31 @@ public class DB_GUI_Controller implements Initializable {
                 major.setText(newValue);
             });
 
+            imageURL.textProperty().addListener((observable, oldValue, newValue) -> {
+                String imageURLString = imageURL.getText();
+                if (imageURLString != null && !imageURLString.isEmpty()) {
+                    img_view.setImage(new Image(imageURLString));
+                }
+            });
+
             Platform.runLater(() -> statusMsg.setText("Welcome!"));
+
 
 
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+
+        // Add key event handler to the scene
+        Scene scene = tv.getScene();
+        if (scene != null) {
+            scene.addEventHandler(KeyEvent.KEY_PRESSED, this::shortcuts);
+        } else {
+            tv.sceneProperty().addListener((obs, oldScene, newScene) -> {
+                if (newScene != null) {
+                    newScene.addEventHandler(KeyEvent.KEY_PRESSED, this::shortcuts);
+                }
+            });
         }
     }
 
@@ -355,6 +375,9 @@ public class DB_GUI_Controller implements Initializable {
         Platform.runLater(() -> statusMsg.setText("The record was successfully deleted!"));
     }
 
+    /**
+     * Upload the image to the storage and show it in the image view
+     */
     @FXML
     protected void showImage() {
         File file = (new FileChooser()).showOpenDialog(img_view.getScene().getWindow());
@@ -363,6 +386,8 @@ public class DB_GUI_Controller implements Initializable {
             Task<Void> uploadTask = createUploadTask(file, progressBar);
             progressBar.progressProperty().bind(uploadTask.progressProperty());
             new Thread(uploadTask).start();
+            imageURL.setText("https://sorychcsc311storage.blob.core.windows.net/media-files/" + file.getName());
+            Platform.runLater(() -> statusMsg.setText("If you want to save URL, please pick a record and click edit."));
         }
     }
 
@@ -546,6 +571,24 @@ public class DB_GUI_Controller implements Initializable {
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * Handle keyboard shortcuts particularly for Ctrl+F
+     * @param event
+     */
+    @FXML
+    public void shortcuts(KeyEvent event) {
+        if (new KeyCodeCombination(KeyCode.E, KeyCombination.CONTROL_DOWN).match(event)) {
+            editRecord();
+        }
+        if(new KeyCodeCombination(KeyCode.D, KeyCombination.CONTROL_DOWN).match(event)) {
+            deleteRecord();
+        }
+        if(new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN).match(event)) {
+            clearForm();
         }
     }
 }
