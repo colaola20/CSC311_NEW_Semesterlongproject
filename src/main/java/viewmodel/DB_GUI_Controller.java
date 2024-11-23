@@ -96,6 +96,10 @@ public class DB_GUI_Controller implements Initializable {
 
             tv.setItems(data);
 
+
+
+            //tv.addEventHandler(MouseEvent.MOUSE_CLICKED, this::selectedItemTV);
+
             // Disable the delete and edit buttons until a record is selected
             deleteBtn.setDisable(true);
             editBtn.setDisable(true);
@@ -317,7 +321,7 @@ public class DB_GUI_Controller implements Initializable {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/view/login.fxml"));
             Scene scene = new Scene(root, 900, 600);
-            scene.getStylesheets().add(getClass().getResource("/css/loginWindow.css").getFile());
+            scene.getStylesheets().add(getClass().getResource("/css/loginWindow.css").toExternalForm());
             Stage window = (Stage) menuBar.getScene().getWindow();
             window.setScene(scene);
             window.show();
@@ -428,7 +432,12 @@ public class DB_GUI_Controller implements Initializable {
     @FXML
     protected void selectedItemTV(MouseEvent mouseEvent) {
         Person p = tv.getSelectionModel().getSelectedItem();
-        if (p==null) return;
+
+        // Enables adding a new row by clicking on empty row
+        if (p==null) {
+            tv.getItems().add(new Person(0, "", "", "", "", "", ""));
+            return;
+        }
 
         first_name.setText(p.getFirstName());
         last_name.setText(p.getLastName());

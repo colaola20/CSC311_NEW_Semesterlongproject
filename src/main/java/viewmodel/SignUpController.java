@@ -1,6 +1,7 @@
 package viewmodel;
 
 import dao.DbConnectivityClass;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -60,23 +61,23 @@ public class SignUpController {
         String passwordText = password.getText();
 
         if (!firstName.isEmpty() && (!isNameValid(firstName))) {
-            errorMsg.setText("Invalid first name.");
+            Platform.runLater(() -> errorMsg.setText("Invalid first name."));
             return;
         }
         else {
-            errorMsg.setText("");
+            Platform.runLater(() -> errorMsg.setText(""));
         }
 
         if (!lastName.isEmpty() && (!isNameValid(lastName))) {
-            errorMsg.setText("Invalid last name.");
+            Platform.runLater(() -> errorMsg.setText("Invalid last name."));
             return;
         }
         else {
-            errorMsg.setText("");
+            Platform.runLater(() -> errorMsg.setText(""));
         }
 
         if (!emailText.isEmpty() && (!isEmailValid(emailText))) {
-            errorMsg.setText("Invalid email.");
+            Platform.runLater(() -> errorMsg.setText("Invalid email."));
             return;
         }
         else {
@@ -84,11 +85,11 @@ public class SignUpController {
         }
 
         if (!passwordText.isEmpty() && (!isPasswordValid(passwordText))) {
-            errorMsg.setText("Invalid password.");
+            Platform.runLater(() -> errorMsg.setText("Invalid password."));
             return;
         }
         else {
-            errorMsg.setText("");
+            Platform.runLater(() -> errorMsg.setText(""));
         }
 
 
@@ -126,6 +127,10 @@ public class SignUpController {
         return name.matches(regex);
     }
 
+    /**
+     * Create a new account in the database
+     * @param actionEvent
+     */
     public void createNewAccount(ActionEvent actionEvent) {
 
         try {

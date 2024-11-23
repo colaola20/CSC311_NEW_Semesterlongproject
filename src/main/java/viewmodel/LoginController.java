@@ -2,6 +2,7 @@ package viewmodel;
 
 import dao.DbConnectivityClass;
 import javafx.animation.FadeTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -99,8 +100,7 @@ public class LoginController {
         }
 
         if ((username.equals("admin") && password.equals("admin"))||(usernameMatch != null && passwordMatch != null && usernameMatch.equals(username) && passwordMatch.equals(password))) {
-            System.out.println("Login successful");
-            incorrectPassword.setText("");
+            Platform.runLater(() -> incorrectPassword.setText(""));
             try {
                 Parent root = FXMLLoader.load(getClass().getResource("/view/db_interface_gui.fxml"));
                 Scene scene = new Scene(root, 1000, 650);
@@ -113,7 +113,7 @@ public class LoginController {
             }
         }
         else {
-            incorrectPassword.setText("Incorrect username or password");
+            Platform.runLater(() -> incorrectPassword.setText("Incorrect username or password"));
         }
     }
 
