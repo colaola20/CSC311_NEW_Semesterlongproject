@@ -60,7 +60,7 @@ public class DB_GUI_Controller implements Initializable {
     MenuBar menuBar;
 
     @FXML
-    private MenuItem ChangePic, ClearItem, CopyItem, deleteItem, editItem, logOut, newItem;
+    private MenuItem ChangePic, ClearItem, CopyItem, deleteItem, editItem, logOut, newItem, HelpItem, AboutItem;
 
     @FXML
     private TableView<Person> tv;
@@ -148,6 +148,9 @@ public class DB_GUI_Controller implements Initializable {
             editItem.setDisable(true);
             deleteItem.setDisable(true);
             ClearItem.setDisable(true);
+            CopyItem.setDisable(true);
+            HelpItem.setDisable(true);
+            AboutItem.setDisable(true);
 
             // Disable the major field, so that the user can only select from the dropdown. After selecting a value from the dropdown, the major field will be automatically populated with the selected value.
             major.setDisable(true);

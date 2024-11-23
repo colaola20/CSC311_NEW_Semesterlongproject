@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
+import service.UserSession;
 
 import java.io.IOException;
 import java.sql.*;
@@ -102,6 +103,8 @@ public class LoginController {
         if ((username.equals("admin") && password.equals("admin"))||(usernameMatch != null && passwordMatch != null && usernameMatch.equals(username) && passwordMatch.equals(password))) {
             Platform.runLater(() -> incorrectPassword.setText(""));
             try {
+                UserSession newSession = UserSession.getInstance(username, password);
+
                 Parent root = FXMLLoader.load(getClass().getResource("/view/db_interface_gui.fxml"));
                 Scene scene = new Scene(root, 1000, 650);
                 scene.getStylesheets().add(getClass().getResource("/css/lightTheme.css").toExternalForm());

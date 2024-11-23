@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
 import model.Person;
+import service.UserSession;
 
 import java.sql.*;
 
@@ -173,6 +174,8 @@ public class SignUpController {
             }
             preparedStatement.close();
             conn.close();
+
+            UserSession newSession = UserSession.getInstance(email.getText(), password.getText());
 
             Parent root = FXMLLoader.load(getClass().getResource("/view/db_interface_gui.fxml"));
             Scene scene = new Scene(root, 1000, 650);

@@ -48,8 +48,8 @@
                         </Menu>
                         <Menu mnemonicParsing="false" styleClass="menu" text="Help">
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#displayAbout" styleClass="menu_item" text="Help" />
-                        <MenuItem mnemonicParsing="false" onAction="#displayAbout" styleClass="menu_item" text="About" />
+                                <MenuItem fx:id="HelpItem" mnemonicParsing="false" onAction="#displayAbout" styleClass="menu_item" text="Help" />
+                        <MenuItem fx:id="AboutItem" mnemonicParsing="false" onAction="#displayAbout" styleClass="menu_item" text="About" />
                             </items>
                         </Menu>
                   <Menu mnemonicParsing="false" styleClass="menu" text="CVS file">
