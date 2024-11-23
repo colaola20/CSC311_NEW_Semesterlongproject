@@ -15,12 +15,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.converter.IntegerStringConverter;
 import model.Person;
 import service.MyLogger;
 
@@ -96,9 +98,45 @@ public class DB_GUI_Controller implements Initializable {
 
             tv.setItems(data);
 
+            tv.setEditable(true);
 
+            tv_fn.setCellFactory(TextFieldTableCell.forTableColumn());
+            tv_ln.setCellFactory(TextFieldTableCell.forTableColumn());
+            tv_department.setCellFactory(TextFieldTableCell.forTableColumn());
+            tv_major.setCellFactory(TextFieldTableCell.forTableColumn());
+            tv_email.setCellFactory(TextFieldTableCell.forTableColumn());
 
-            //tv.addEventHandler(MouseEvent.MOUSE_CLICKED, this::selectedItemTV);
+            tv_fn.setOnEditCommit(event -> {
+                Person p = event.getRowValue();
+                p.setFirstName(event.getNewValue());
+                cnUtil.editUser(p.getId(), p);
+                    });
+
+            tv_ln.setOnEditCommit(event -> {
+                Person p = event.getRowValue();
+                p.setLastName(event.getNewValue());
+                cnUtil.editUser(p.getId(), p);
+            });
+
+            tv_department.setOnEditCommit(event -> {
+                Person p = event.getRowValue();
+                p.setDepartment(event.getNewValue());
+                cnUtil.editUser(p.getId(), p);
+            });
+
+            tv_major.setOnEditCommit(event -> {
+                Person p = event.getRowValue();
+                p.setMajor(event.getNewValue());
+                cnUtil.editUser(p.getId(), p);
+            });
+
+            tv_email.setOnEditCommit(event -> {
+                Person p = event.getRowValue();
+                p.setEmail(event.getNewValue());
+                cnUtil.editUser(p.getId(), p);
+            });
+
+            tv.addEventHandler(MouseEvent.MOUSE_CLICKED, this::selectedItemTV);
 
             // Disable the delete and edit buttons until a record is selected
             deleteBtn.setDisable(true);
